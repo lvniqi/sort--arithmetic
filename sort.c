@@ -32,12 +32,12 @@ void insertSort(qS_data* p,int len){
         }
     }
 }
-void quickSort(qS_data* p,int low,int high){
-    int i=low,j=high;
+void _quickSort(qS_data* p,int start,int end){
+    int i=start,j=end;
     if(i>=j){
         return;
     }
-    qS_data key = p[low];
+    qS_data key = p[start];
     while(i<j){
         while(i<j&&p[j]>=key){
             j--;
@@ -51,9 +51,40 @@ void quickSort(qS_data* p,int low,int high){
     p[i] = key;
     printData(p,DATA_LEN);
     printf("i:%d,j:%d\n",i,j);
-    quickSort(p,low,i-1);
-    quickSort(p,j+1,high);
+    _quickSort(p,start,i-1);
+    _quickSort(p,j+1,end);
     return;
+}
+#define quickSort(a,b)  _quickSort((a),0,(b)-1)
+void _Merge(int sourceArr[],int tempArr[],int startIndex,int midIndex,int endIndex)
+{
+    int i = startIndex,j=midIndex+1,k = startIndex;
+    while(i<=midIndex && j<=endIndex)
+    {
+        if(sourceArr[i]<sourceArr[j])
+            tempArr[k++] = sourceArr[i++];
+        else
+            tempArr[k++] = sourceArr[j++];
+    }
+    while(i<=midIndex)
+        tempArr[k++] = sourceArr[i++];
+    while(j<=endIndex)
+        tempArr[k++] = sourceArr[j++];
+    for(i=startIndex;i<=endIndex;i++)
+        sourceArr[i] = tempArr[i];
+}
+ 
+//内部使用递归
+void _MergeSort(int sourceArr[],int tempArr[],int startIndex,int endIndex)
+{
+    int midIndex;
+    if(startIndex<endIndex)
+    {
+        midIndex=(startIndex+endIndex)/2;
+        _MergeSort(sourceArr,tempArr,startIndex,midIndex);
+        _MergeSort(sourceArr,tempArr,midIndex+1,endIndex);
+        _Merge(sourceArr,tempArr,startIndex,midIndex,endIndex);
+    }
 }
 void printData(qS_data*p,int len){
     int i;
@@ -65,9 +96,12 @@ void printData(qS_data*p,int len){
 }
 int main(void){
     qS_data temp[DATA_LEN]={1,2,4,6,5,2321,4,3,4,545,6,4,42,3,434,};
+    qS_data temp2[DATA_LEN];
+
     printData(temp,DATA_LEN);
-    //quickSort(temp,0,DATA_LEN-1);
-    insertSort(temp,DATA_LEN);
+    //quickSort(temp,DATA_LEN);
+    _MergeSort(temp,temp2,0,19);
+    //insertSort(temp,DATA_LEN);
     printData(temp,DATA_LEN);
     return 0;
 
