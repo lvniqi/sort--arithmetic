@@ -1,8 +1,6 @@
 #include<stdio.h>
+#include"sort.h"
 #define DATA_LEN 20
-typedef int qS_data;
-
-extern void printData(qS_data*p,int len);
 void bubbleSort(qS_data* p,int len){
     int i;
     for(i=0;i<len;i++){
@@ -55,7 +53,6 @@ void _quickSort(qS_data* p,int start,int end){
     _quickSort(p,j+1,end);
     return;
 }
-#define quickSort(a,b)  _quickSort((a),0,(b)-1)
 void _Merge(int sourceArr[],int tempArr[],int startIndex,int midIndex,int endIndex)
 {
     int i = startIndex,j=midIndex+1,k = startIndex;
@@ -72,17 +69,16 @@ void _Merge(int sourceArr[],int tempArr[],int startIndex,int midIndex,int endInd
         tempArr[k++] = sourceArr[j++];
     for(i=startIndex;i<=endIndex;i++)
         sourceArr[i] = tempArr[i];
-}
- 
+} 
 //内部使用递归
-void _MergeSort(int sourceArr[],int tempArr[],int startIndex,int endIndex)
+void _mergeSort(int sourceArr[],int tempArr[],int startIndex,int endIndex)
 {
     int midIndex;
     if(startIndex<endIndex)
     {
         midIndex=(startIndex+endIndex)/2;
-        _MergeSort(sourceArr,tempArr,startIndex,midIndex);
-        _MergeSort(sourceArr,tempArr,midIndex+1,endIndex);
+        _mergeSort(sourceArr,tempArr,startIndex,midIndex);
+        _mergeSort(sourceArr,tempArr,midIndex+1,endIndex);
         _Merge(sourceArr,tempArr,startIndex,midIndex,endIndex);
     }
 }
@@ -100,7 +96,7 @@ int main(void){
 
     printData(temp,DATA_LEN);
     //quickSort(temp,DATA_LEN);
-    _MergeSort(temp,temp2,0,19);
+    mergeSort(temp,temp2,DATA_LEN);
     //insertSort(temp,DATA_LEN);
     printData(temp,DATA_LEN);
     return 0;
