@@ -1,5 +1,6 @@
 #ifndef SORT_H_
     #define SOET_H_
+	#include<stdio.h>
     typedef int datatype;
     extern void printData(datatype* p,int len);
     extern void bubbleSort(datatype* p,int len); 

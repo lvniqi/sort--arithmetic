@@ -74,3 +74,10 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+
+#notepad++
+*.bak
+
+#vim
+*.swp
+*.un~
