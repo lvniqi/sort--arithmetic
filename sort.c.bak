@@ -1,7 +1,7 @@
 #include<stdio.h>
 #include"sort.h"
 #define DATA_LEN 20
-void bubbleSort(datatype* p,int len){
+void bubbleSort(qS_data* p,int len){
     int i;
     for(i=0;i<len;i++){
         int j;
@@ -14,7 +14,7 @@ void bubbleSort(datatype* p,int len){
         }
     }
 }
-void insertSort(datatype* p,int len){
+void insertSort(qS_data* p,int len){
     int i;
     for(i=1;i<len;i++){
         int j;
@@ -30,12 +30,12 @@ void insertSort(datatype* p,int len){
         }
     }
 }
-void _quickSort(datatype* p,int start,int end){
+void _quickSort(qS_data* p,int start,int end){
     int i=start,j=end;
     if(i>=j){
         return;
     }
-    datatype key = p[start];
+    qS_data key = p[start];
     while(i<j){
         while(i<j&&p[j]>=key){
             j--;
@@ -82,7 +82,7 @@ void _mergeSort(int sourceArr[],int tempArr[],int startIndex,int endIndex)
         _Merge(sourceArr,tempArr,startIndex,midIndex,endIndex);
     }
 }
-void printData(datatype*p,int len){
+void printData(qS_data*p,int len){
     int i;
     printf("---+----+---\n");
     for(i=0;i<len;i++){
@@ -91,8 +91,8 @@ void printData(datatype*p,int len){
     printf("\nend!\n");
 }
 int main(void){
-    datatype temp[DATA_LEN]={1,2,4,6,5,2321,4,3,4,545,6,4,42,3,434,};
-    datatype temp2[DATA_LEN];
+    qS_data temp[DATA_LEN]={1,2,4,6,5,2321,4,3,4,545,6,4,42,3,434,};
+    qS_data temp2[DATA_LEN];
 
     printData(temp,DATA_LEN);
     //quickSort(temp,DATA_LEN);

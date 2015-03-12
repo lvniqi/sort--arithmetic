@@ -7,26 +7,37 @@ typedef struct _binary_tree_node{
     struct _binary_tree_node* right;
 }binary_tree_node;
 void printTree(binary_tree_node* p){
-    if(NULL == p){
-        return;
-    }
-    printf("goto left:\n");
-    printTree(p->left);
-    printf("goto right:\n");
-    printTree(p->right);
-    printf("my:\n");
-    printf("%d\n",p->value);
-}
-void addTree(binary_tree_node* p,binary_tree_node* item){
-    if(NULL == p->left){
-        p->left = item;
-    }
-    else if(NULL == p->right){
-        p->right = item;
+    if(NULL != p){
+        printf("my: %d\n",p->value);
     }
     else{
-        if(item->value > p->value){
+        return;
+    }
+    //printf("goto left:\n");
+    printTree(p->left);
+    //printf("goto right:\n");
+    printTree(p->right);
+}
+int getTreeDepth(binary_tree_node * p)  
+{  
+    if(p == NULL) // 递归出口  
+        return 0;  
+    int depthLeft = getTreeDepth(p->left);  
+    int depthRight = getTreeDepth(p->right);  
+    return depthLeft > depthRight ? (depthLeft + 1) : (depthRight + 1);   
+}  
+void addTree(binary_tree_node* p,binary_tree_node* item){
+    if(item->value > p->value){
+        if(NULL == p->left){
+            p->left = item;
+        }
+        else{
             addTree(p->left,item);
+        }
+    }
+    else{
+        if(NULL == p->right){
+            p->right = item;
         }
         else{
             addTree(p->right,item);
@@ -51,6 +62,7 @@ int main(void){
         printf("%d\n",p->value);
         addTree(base,p);
     }
+    printf("Tree Depth = %d\n",getTreeDepth(base));
     printf("________\n");
     printTree(base);
     return 0;
