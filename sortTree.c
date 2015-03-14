@@ -1,11 +1,11 @@
 #include<stdlib.h>
 #include<stdbool.h>
 #include"sortTree.h"
-void initTree(sort_tree_node* p){
+void initTree(sortTree_node* p){
     p->left = NULL;
     p->right = NULL;
 }
-void printTree(sort_tree_node* p){
+void printTree(sortTree_node* p){
     if(NULL == p){
         return;
     }
@@ -16,8 +16,8 @@ void printTree(sort_tree_node* p){
     //printf("goto right:\n");
 }
 /*查找，找到返回1，否则，返回0*/
-bool searchTree(sort_tree_node *root, datatype dat){
-    sort_tree_node *p;
+bool searchTree(sortTree_root root, datatype dat){
+    sortTree_node *p;
     p = root;
     if(p == NULL){
         return false;
@@ -32,7 +32,7 @@ bool searchTree(sort_tree_node *root, datatype dat){
         return searchTree(p->right, dat);
     }
 }
-int getTreeDepth(sort_tree_node * p){
+int getTreeDepth(sortTree_root p){
     if(p == NULL) // 递归出口  
         return 0;  
     int depthLeft = getTreeDepth(p->left);  
@@ -40,10 +40,10 @@ int getTreeDepth(sort_tree_node * p){
     return depthLeft > depthRight ? (depthLeft + 1) : (depthRight + 1);   
 }
 
-sort_tree_node* _insertTree(sort_tree_node* root,
-        sort_tree_node* now,datatype dat){
+sortTree_node* _insertTree(sortTree_root root,
+        sortTree_node* now,datatype dat){
     if(now == NULL){
-        now = (sort_tree_node*)malloc(sizeof(sort_tree_node));
+        now = (sortTree_node*)malloc(sizeof(sortTree_node));
         initTree(now);
         now->value = dat;
         if(root == NULL){
@@ -73,8 +73,8 @@ sort_tree_node* _insertTree(sort_tree_node* root,
      }
 }
 /*删除节点值为value的节点*/
-bool _deleteTree(sort_tree_node *root,
-        sort_tree_node* now,datatype value){
+bool _deleteTree(sortTree_root root,
+        sortTree_node* now,datatype value){
     if(NULL == now){
         return false;
     }
@@ -96,7 +96,7 @@ bool _deleteTree(sort_tree_node *root,
     }
 }
 int main(void){
-    sort_tree_node*base = NULL;
+    sortTree_node*base = NULL;
     int i;
     srand(i);
     int temp;
