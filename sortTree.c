@@ -15,6 +15,27 @@ void printTree(sortTree_node* p){
     //printf("goto left:\n");
     //printf("goto right:\n");
 }
+int _printTree_byLevel(sortTree_root T, int level) {  
+    if (!T || level < 0){
+        return 0;  
+    }
+    if (0 == level) {
+        printf("%d\t",T->value);
+        return 1;  
+    }  
+    return _printTree_byLevel(T->left, level - 1) 
+        + _printTree_byLevel(T->right, level - 1);  
+}
+void printTree_byLevel(sortTree_root T) {  
+    int i = 0;   
+    for (i = 0; ; i++) {
+        printf("\n");
+        if (!_printTree_byLevel(T, i)){
+           break; 
+        }   
+    }    
+    printf("\n");
+}  
 /*查找，找到返回1，否则，返回0*/
 bool searchTree(sortTree_root root, datatype dat){
     sortTree_node *p;
@@ -101,14 +122,15 @@ int main(void){
     srand(i);
     int temp;
     for(i=0;i<10;i++){
-        temp = rand()*4096;
+        temp = rand()%256;
         base = _insertTree(base,base,temp);
         printf("%d\n",temp);
         //addTree(base,p);
     }
     printf("________\n");
-    _deleteTree(base,base,temp);
+    printTree_byLevel(base);
     printf("Tree Depth = %d\n",getTreeDepth(base));
+    _deleteTree(base,base,temp);
     printf("________\n");
     printTree(base);
     return 0;
