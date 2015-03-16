@@ -9,9 +9,31 @@ typedef struct _avlTree_node
     struct _avlTree_node *right;
 }avlTree_node;
 typedef avlTree_node* avlTree_root;
+int _printTree_byLevel(avlTree_root T, int level) {  
+    if (!T || level <= 0){
+        return 0;  
+    }
+    if (1 == level) {
+        printf("%d\t",T->value);
+        return 1;  
+    }  
+    return _printTree_byLevel(T->left, level - 1) 
+        + _printTree_byLevel(T->right, level - 1);  
+}
+void printTree_byLevel(avlTree_root T) {  
+    int i = 1;   
+    while(1) {
+        printf("\n");
+        if (!_printTree_byLevel(T, i)){
+           break; 
+        }
+        i++;   
+    }    
+    printf("\n");
+}  
 
 void initAvlTree(avlTree_node* p){
-    p->nHeight = 0;
+    p->nHeight = 1 ;
     p->left = NULL;
     p->right = NULL;
 }
@@ -20,7 +42,7 @@ int getMax(int x,int y){
 }
 int getAvlTreeHeight(avlTree_node* p){
     if(NULL == p){
-        return -1;
+        return 0;
     }
     else{
         return p->nHeight;
@@ -105,4 +127,15 @@ avlTree_root insertAvlTree(avlTree_node* p,datatype value)
     p->nHeight = getMax(getAvlTreeHeight(p->left), 
             getAvlTreeHeight(p->right)) + 1;
     return p;
+}
+int main(void){
+    avlTree_root root = (avlTree_root)malloc(sizeof(avlTree_node));
+    initAvlTree(root);
+    root->value = 100;
+    int i;
+    for(i=0;i<20;i++){
+        root = insertAvlTree(root,i);
+    }
+    printf("height: %d\n",getAvlTreeHeight(root));
+    printTree_byLevel(root);
 }
