@@ -1,6 +1,25 @@
 #include<stdio.h>
 #include"sort.h"
 #define DATA_LEN 20
+void swap(datatype *a, datatype *b){
+    datatype temp = *a;
+    *a = *b;
+    *b = temp;
+}
+void selectSort(datatype *p,int len){
+	int i,j,now;
+	for(i=0;i<len;i++){
+		now = i;
+		for(j=i+1;j<len;j++){
+		    if(p[now] >p[j]){
+				now = j;
+			}
+		}
+        if(now != i){
+            swap(p+i,p+now);
+        }
+	}
+}
 void bubbleSort(datatype* p,int len){
     int i;
     for(i=0;i<len;i++){
@@ -90,15 +109,16 @@ void printData(datatype*p,int len){
     }
     printf("\nend!\n");
 }
-/*int main(void){
+int main(void){
     datatype temp[DATA_LEN]={1,2,4,6,5,2321,4,3,4,545,6,4,42,3,434,};
     datatype temp2[DATA_LEN];
 
     printData(temp,DATA_LEN);
     //quickSort(temp,DATA_LEN);
-    mergeSort(temp,temp2,DATA_LEN);
+    selectSort(temp,DATA_LEN);
+    //mergeSort(temp,temp2,DATA_LEN);
     //insertSort(temp,DATA_LEN);
     printData(temp,DATA_LEN);
     return 0;
 
-}*/
+}
