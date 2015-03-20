@@ -47,8 +47,8 @@ void _quickSort(datatype* p,int start,int end){
         p[j] = p[i];
     }
     p[i] = key;
-    printData(p,DATA_LEN);
-    printf("i:%d,j:%d\n",i,j);
+    //printData(p,DATA_LEN);
+    //printf("i:%d,j:%d\n",i,j);
     _quickSort(p,start,i-1);
     _quickSort(p,j+1,end);
     return;
@@ -90,7 +90,7 @@ void printData(datatype*p,int len){
     }
     printf("\nend!\n");
 }
-int main(void){
+/*int main(void){
     datatype temp[DATA_LEN]={1,2,4,6,5,2321,4,3,4,545,6,4,42,3,434,};
     datatype temp2[DATA_LEN];
 
@@ -101,4 +101,4 @@ int main(void){
     printData(temp,DATA_LEN);
     return 0;
 
-}
+}*/
