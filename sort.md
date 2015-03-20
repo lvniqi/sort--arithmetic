@@ -30,6 +30,7 @@ void selectSort(datatype *p,int len){
 	}
 }
 ```
+***
 
 ## 冒泡
 冒泡也很简单，但是日常生活中这个做的确实不多。    
@@ -50,12 +51,31 @@ void bubbleSort(datatype* p,int len){
         int j;
         for(j=len-1;j>0;j--){
             if(p[j]<p[j-1]){
-                int temp = p[j];
-                p[j] = p[j-1];
-                p[j-1] = temp;
+               swap(p+j,p+j-1);
             }
         }
     }
 }
 
 ```
+### 改进冒泡排序
+冒泡排序的最佳时间复杂度怎么算都是**O(N^2)**，但网上和许多书上都写道是**O(n)**。于是google下，找到了答案：
+```C
+void bubbleSort(datatype* p,int len) {
+    bool didSwap;
+    for(int i = 0; i < len - 1; i++) {
+        didSwap = false;
+        for(int j = 0; j < len - i - 1; j++) {
+            if(p[j + 1] < arr[j]) {
+                swap(p+j,p+ j + 1);
+                didSwap = true;
+            }
+        }
+        if(didSwap == false)
+            return;
+    }    
+}
+```
+这个改进算法中，使用**didSwap**确保如果一次扫过所有的对象都排序正确时，及时退出，使得最佳情况时时间复杂度为**O(n)**。
+
+***
