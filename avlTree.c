@@ -21,9 +21,11 @@ int _printTree_byLevel(avlTree_root T, int level) {
         + _printTree_byLevel(T->right, level - 1);  
 }
 void printTree_byLevel(avlTree_root T) {  
-    int i = 1;   
+     int i = 1;   
     while(1) {
-        printf("\n");
+        if(1 != i){
+        printf("------%d-------\n",(i-1));
+        }
         if (!_printTree_byLevel(T, i)){
            break; 
         }
@@ -86,8 +88,7 @@ avlTree_node* _rotateAvlTree_RL(avlTree_node* p){
 /**
  * 插入
  */
-avlTree_root insertAvlTree(avlTree_node* p,datatype value)
-{
+avlTree_root insertAvlTree(avlTree_node* p,datatype value){
     if (NULL == p){
         p = (avlTree_node*)malloc(sizeof(avlTree_node));
         initAvlTree(p);
@@ -106,7 +107,7 @@ avlTree_root insertAvlTree(avlTree_node* p,datatype value)
             //数据成为左孩子的右子树(LR型)
             else{
                 p = _rotateAvlTree_LR(p);
-             }
+            }
         }
     }
      /*插入到右子树中*/
@@ -127,6 +128,17 @@ avlTree_root insertAvlTree(avlTree_node* p,datatype value)
     p->nHeight = getMax(getAvlTreeHeight(p->left), 
             getAvlTreeHeight(p->right)) + 1;
     return p;
+}
+/*
+ *删除
+ */
+avlTree_root deleteAvlTree(avlTree_node* p,datatype value){
+    if(NULL == p){
+        return p;
+    }
+    else{
+        deleteAvlTree(p,value);
+    }
 }
 int main(void){
     avlTree_root root = (avlTree_root)malloc(sizeof(avlTree_node));

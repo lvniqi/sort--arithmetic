@@ -29,7 +29,7 @@ int _printTree_byLevel(sortTree_root T, int level) {
 void printTree_byLevel(sortTree_root T) {  
     int i = 0;   
     for (i = 0; ; i++) {
-        printf("\n");
+        printf("------%d-------\n",i);
         if (!_printTree_byLevel(T, i)){
            break; 
         }   
