@@ -5,12 +5,12 @@
  * 修复最小堆
  */
 
-void fixMinHeap(int a[],int child){
+void fixMinHeap_up(int a[],int child){
     int parent,temp;
     temp = a[child];
     parent = (child-1)/2;
     while (parent >= 0 && child >0){
-        //如果子节点的值大于父节点
+        //如 果子节点的值大于父节点
         //则跳出
         if(a[parent] <= temp){
             break;
@@ -23,8 +23,16 @@ void fixMinHeap(int a[],int child){
 }
 void insertMinHeap(int a[],int pos,int value){
     a[pos] = value;
-    fixMinHeap(a,pos);
+    fixMinHeap_up(a,pos);
 }
+void fixMinHeap_down(int a[],int start,int end){
+    //找到最小的到a[0]
+    int temp = a[start];
+    int child = 2*start+1;
+    while(child < end){
+        if(child +1 <end && a[child+1] < a[child])
+    }
+} 
 int main(void){
 
 }
