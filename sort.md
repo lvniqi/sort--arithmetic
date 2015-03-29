@@ -79,3 +79,61 @@ void bubbleSort(datatype* p,int len) {
 这个改进算法中，使用**didSwap**确保如果一次扫过所有的对象都排序正确时，及时退出，使得最佳情况时时间复杂度为**O(n)**。
 
 ***
+
+## 插入排序
+插入排序是指，将一个值插入一个有序数组，获得一个新的有序数组的排序方式。
+```C
+void insertSort(datatype* p,int len){
+    int i;
+    for(i=1;i<len;i++){
+        int j;
+        int temp = p[i];
+        for(j=i-1;j>=0;j--){
+            if(temp<p[j]){
+                p[j+1]=p[j];
+            } 
+            else{
+                break;
+            }
+            p[j] = temp;
+        }
+    }
+}
+```
+***
+
+## 快速排序
+快速排序可以称为最快的排序算法。平均狀況时间复杂度**Ο(n log n)**，最坏情况**Ο(n^2)**,最好情况**Ο(n)**。因为最坏情况出现几率很少，所以几乎可以忽略不计。     
+### 快速排序的思路
+根据![morewindows](http://www.cnblogs.com/morewindows/archive/2011/08/13/2137415.html)的介绍，将快速排序归纳为**挖坑填数**+**分治法**。
+#### 分治法   
+* 情况1：排序数量只有2个，则排序就是将大的数放到小的数之后。
+* 情况2：添加排序数量，例如10个，我们总可以将其分为2个序列，一个比另一个都小，然后再将这个分割。最后回到情况1。
+
+#### 挖坑填数
+* 使用左右两个指针，一个挖坑一个填。(具体要盗图，还是去看![原文](http://www.cnblogs.com/morewindows/archive/2011/08/13/2137415.html)的。
+```C
+void _quickSort(datatype* p,int start,int end){
+    int i=start,j=end;
+    if(i>=j){
+        return;
+    }
+    datatype key = p[start];
+    while(i<j){
+        while(i<j&&p[j]>=key){
+            j--;
+        }
+        p[i] = p[j];
+        while(i<j&&p[i]<=key){
+            i++;
+        }
+        p[j] = p[i];
+    }
+    p[i] = key;
+    //printData(p,DATA_LEN);
+    //printf("i:%d,j:%d\n",i,j);
+    _quickSort(p,start,i-1);
+    _quickSort(p,j+1,end);
+    return;
+}
+```
