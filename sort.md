@@ -105,13 +105,13 @@ void insertSort(datatype* p,int len){
 ## 快速排序
 快速排序可以称为最快的排序算法。平均狀況时间复杂度**Ο(n log n)**，最坏情况**Ο(n^2)**,最好情况**Ο(n)**。因为最坏情况出现几率很少，所以几乎可以忽略不计。     
 ### 快速排序的思路
-根据![morewindows](http://www.cnblogs.com/morewindows/archive/2011/08/13/2137415.html)的介绍，将快速排序归纳为**挖坑填数**+**分治法**。
+根据[morewindows](http://www.cnblogs.com/morewindows/archive/2011/08/13/2137415.html)的介绍，将快速排序归纳为**挖坑填数**+**分治法**。
 #### 分治法   
 * 情况1：排序数量只有2个，则排序就是将大的数放到小的数之后。
 * 情况2：添加排序数量，例如10个，我们总可以将其分为2个序列，一个比另一个都小，然后再将这个分割。最后回到情况1。
 
 #### 挖坑填数
-* 使用左右两个指针，一个挖坑一个填。(具体要盗图，还是去看![原文](http://www.cnblogs.com/morewindows/archive/2011/08/13/2137415.html)的。
+* 使用左右两个指针，一个挖坑一个填。(具体要盗图，还是去看[原文](http://www.cnblogs.com/morewindows/archive/2011/08/13/2137415.html)的。
 ```C
 void _quickSort(datatype* p,int start,int end){
     int i=start,j=end;
