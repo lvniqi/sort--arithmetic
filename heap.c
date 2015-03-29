@@ -77,6 +77,13 @@ void makeMinHeap(int a[],int len){
     fixMinHeap_down(a,i,len);
     }
 }
+void sortByMinHeap(int a[],int len){
+    int i;
+    for(i=len-1;i>=1;i--){
+        intSwap(a,a+i);
+        fixMinHeap_down(a,0,i-1);
+    }
+}
 int main(void){
 #define DATA_LEN 10
     int a[DATA_LEN];
@@ -87,8 +94,9 @@ int main(void){
     }
     makeMinHeap(a,DATA_LEN);
     showMinHeap(a,DATA_LEN);
-    deleteMinHeap(a,DATA_LEN);
-    showMinHeap(a,DATA_LEN-1);
+    //deleteMinHeap(a,DATA_LEN);
+    sortByMinHeap(a,DATA_LEN);
+    showMinHeap(a,DATA_LEN);
     return 0;
 #undef DATA_LEN
 }
