@@ -69,14 +69,23 @@ void deleteMinHeap(int a[],int len){
    intSwap(a,a+len-1);
    fixMinHeap_down(a,0,len-1);
 }
+//堆化数组
+//子节点不用整理，父节点整理
+void makeMinHeap(int a[],int len){
+   int i;
+   for(i=len/2-1;i>=0;i--){
+    fixMinHeap_down(a,i,len);
+    }
+}
 int main(void){
 #define DATA_LEN 10
     int a[DATA_LEN];
     int i;
     //showMinHeap(a,DATA_LEN);
     for(i=0;i<DATA_LEN;i++){
-        insertMinHeap(a,i,100-i);
+        a[i] = DATA_LEN-i;
     }
+    makeMinHeap(a,DATA_LEN);
     showMinHeap(a,DATA_LEN);
     deleteMinHeap(a,DATA_LEN);
     showMinHeap(a,DATA_LEN-1);
