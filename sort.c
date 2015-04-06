@@ -49,6 +49,25 @@ void insertSort(datatype* p,int len){
         }
     }
 }
+void shellSort(datatype *p,int len){
+    int now,gap;
+    //增量定义方式
+    for(gap = len/2;gap>0;gap/=2){
+        //插入排序
+        for(now=gap;now<len;now+=gap){
+            int last = now-gap;
+            //需要插入
+            if(p[now] <p[last]){
+                int temp = p[now];
+                while(last >=0 && p[last] >temp){
+                    p[last+gap] = p[last];
+                    last -= gap;
+                }
+                p[last+gap] = temp;
+            }
+        }
+    }
+}
 void _quickSort(datatype* p,int start,int end){
     int i=start,j=end;
     if(i>=j){
@@ -115,9 +134,10 @@ int main(void){
 
     printData(temp,DATA_LEN);
     //quickSort(temp,DATA_LEN);
-    selectSort(temp,DATA_LEN);
+    //selectSort(temp,DATA_LEN);
     //mergeSort(temp,temp2,DATA_LEN);
     //insertSort(temp,DATA_LEN);
+    shellSort(temp,DATA_LEN);
     printData(temp,DATA_LEN);
     return 0;
 
