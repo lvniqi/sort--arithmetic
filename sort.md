@@ -2,7 +2,7 @@
 ==============
 ## 前言
 
-排序的坑其实是在二叉树之前就补得差不多了，但是懒，所以一直没写。现在还差堆排序(原谅我还没看到堆)、希尔排序，稍后补完。我个人觉得，排序是为之后的其他搜索、插入等等操作节省时间和空间的折中做法。
+排序的坑其实是在二叉树之前就补得差不多了，但是懒，所以一直没写。现在还差堆排序(堆排序会另外写一篇)。我个人觉得，排序是为之后的其他搜索、插入等等操作节省时间和空间的折中做法，例如，没有排序就无法二分查找。
 
 至于查找....这个...因为平时单片机用惯了，以KB计算的单片机内存根本体现不出算法的优势啊.....而且查找在我编写的程序中确实很难用得到...但是作为基本算法，一并补了吧，反正也就看了简单的二分法。
 
@@ -11,7 +11,7 @@
 ***swap:	交换...懒得打代码，直接用函数***
 ***
 
-## 选择
+## 选择排序
 选择排序的逻辑很简单，选一个**最小**的放到第一个，次小的放到第二个，以此类推...    
 就如同我们平时整理东西一样，你看桌子上一堆书，怎么放整齐呢？你把最小的放上面，再把次小的放第二层以此类推。
 ```C
@@ -32,7 +32,7 @@ void selectSort(datatype *p,int len){
 ```
 ***
 
-## 冒泡
+## 冒泡排序
 冒泡也很简单，但是日常生活中这个做的确实不多。    
 想象下，你整理书本是这个样子的：
 * 从一摞书的最后开始看。
@@ -101,6 +101,29 @@ void insertSort(datatype* p,int len){
 }
 ```
 ***
+## 希尔排序
+希尔排序可以看作是插入排序的优化版，用于减少插入排序造成的大量数据交换。通过将数据**间隔某个增量划分为组**，同时将间隔减少，直至最后减少至0，完成排序。
+```C
+void shellSort(datatype *p,int len){
+    int now,gap;
+    //增量定义方式
+    for(gap = len/2;gap>0;gap/=2){
+        //插入排序
+        for(now=gap;now<len;now+=gap){
+            int last = now-gap;
+            //需要插入
+            if(p[now] <p[last]){
+                int temp = p[now];
+                while(last >=0 && p[last] >temp){
+                    p[last+gap] = p[last];
+                    last -= gap;
+                }
+                p[last+gap] = temp;
+            }
+        }
+    }
+}
+```
 
 ## 快速排序
 快速排序可以称为最快的排序算法。平均狀況时间复杂度**Ο(n log n)**，最坏情况**Ο(n^2)**,最好情况**Ο(n)**。因为最坏情况出现几率很少，所以几乎可以忽略不计。     
@@ -137,3 +160,50 @@ void _quickSort(datatype* p,int start,int end){
     return;
 }
 ```
+***
+## 归并排序
+归并排序属于**分治法(Divide and Conquer)** 的典型应用之一。   
+简要思想为：
+* 将数组中的数二分为两组。
+* 然后再二分....一直到只剩两个数，此时，排序的操作变得异常简单，选择即可。
+* 返回，现在你得到了一堆已经排序的含有两个数的数组。
+* 然后将其合并，合并时，选择两个数列中的最小值，将其复制到临时空间。删除序列中的这个值再重复此操作。
+* 这样，交换空间中的4个数就是排完序的4个数，将其复制回数组，2个数组的归并完成。
+* 重复此操作，直至归并完成。
+
+从其简要思想来看，递归是一个节省脑力的小技巧。如下是总体程序。因为需要temp空间，所以可以想见，其空间复杂度一定不低。
+```C
+void _mergeSort(int sourceArr[],int tempArr[],int startIndex,int endIndex)
+{
+    int midIndex;
+    if(startIndex<endIndex)
+    {
+        midIndex=(startIndex+endIndex)/2;
+        _mergeSort(sourceArr,tempArr,startIndex,midIndex);
+        _mergeSort(sourceArr,tempArr,midIndex+1,endIndex);
+        _Merge(sourceArr,tempArr,startIndex,midIndex,endIndex);
+    }
+}
+```
+其中，_Merge是真正进行排序操作的函数。其思想即是**选择两个数列中的最小值**，**复制到临时空间**,**删除序列中的这个值**再重复此操作。最后从临时空间中将数据复制回来。
+```C
+void _Merge(int sourceArr[],int tempArr[],int startIndex,int midIndex,int endIndex)
+{
+    int i = startIndex,j=midIndex+1,k = startIndex;
+    while(i<=midIndex && j<=endIndex)
+    {
+        if(sourceArr[i]<sourceArr[j])
+            tempArr[k++] = sourceArr[i++];
+        else
+            tempArr[k++] = sourceArr[j++];
+    }
+    while(i<=midIndex)
+        tempArr[k++] = sourceArr[i++];
+    while(j<=endIndex)
+        tempArr[k++] = sourceArr[j++];
+    for(i=startIndex;i<=endIndex;i++)
+        sourceArr[i] = tempArr[i];
+} 
+```
+***
+## 二分查找
