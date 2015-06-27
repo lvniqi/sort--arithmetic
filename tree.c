@@ -1,5 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
+#include<stdbool.h>
 typedef int Tr_data;
 typedef struct _binary_tree_node{
     Tr_data value;
@@ -17,6 +18,27 @@ void printTree(binary_tree_node* p){
     printTree(p->left);
     //printf("goto right:\n");
     printTree(p->right);
+}
+void printTree_level(binary_tree_node* p){
+    //SEQUEUE?
+    binary_tree_node* queue[100];
+    int rear=0,front=0;
+    if(NULL != p){
+        queue[rear++] = p;
+        while(true){
+            p = queue[front++];
+            printf("data: %d\r\n",p->value);
+            if(p->left){
+                queue[rear++] = p->left;
+            }
+            if(p->right){
+                queue[rear++] = p->right;
+            }
+            if(front == rear){
+                break;
+            }
+        }
+    }
 }
 int getTreeDepth(binary_tree_node * p)  
 {  
@@ -52,18 +74,20 @@ int main(void){
     binary_tree_node* p;
     binary_tree_node*base = (binary_tree_node*)malloc(sizeof(binary_tree_node));
     initTree(base);
-    base->value = 0;
+    base->value = 100;
     int i;
     srand(1);
     for(i=0;i<10;i++){
         p = (binary_tree_node*)malloc(sizeof(binary_tree_node));
         initTree(p);
         p->value = rand()*4906;
+        //p->value = i;
         printf("%d\n",p->value);
         addTree(base,p);
     }
     printf("Tree Depth = %d\n",getTreeDepth(base));
     printf("________\n");
-    printTree(base);
+    //printTree(base);
+    printTree_level(base);
     return 0;
 }

@@ -1,6 +1,7 @@
 #include<stdio.h>
 #include"sort.h"
-#define DATA_LEN 20
+//#define DATA_LEN 20
+#define DATA_LEN 4
 void swap(datatype *a, datatype *b){
     datatype temp = *a;
     *a = *b;
@@ -82,6 +83,7 @@ void _quickSort(datatype* p,int start,int end){
         while(i<j&&p[i]<=key){
             i++;
         }
+        printData(p,DATA_LEN);
         p[j] = p[i];
     }
     p[i] = key;
@@ -129,15 +131,15 @@ void printData(datatype*p,int len){
     printf("\nend!\n");
 }
 int main(void){
-    datatype temp[DATA_LEN]={1,2,4,6,5,2321,4,3,4,545,6,4,42,3,434,};
-    datatype temp2[DATA_LEN];
-
-    printData(temp,DATA_LEN);
-    //quickSort(temp,DATA_LEN);
+    //datatype temp[DATA_LEN]={1,2,4,6,5,2321,4,3,4,545,6,4,42,3,434,};
+    //datatype temp2[DATA_LEN];
+    datatype temp[DATA_LEN]={3,4,2,5};
+    //printData(temp,DATA_LEN);
+    quickSort(temp,DATA_LEN);
     //selectSort(temp,DATA_LEN);
     //mergeSort(temp,temp2,DATA_LEN);
     //insertSort(temp,DATA_LEN);
-    shellSort(temp,DATA_LEN);
+    //shellSort(temp,DATA_LEN);
     printData(temp,DATA_LEN);
     return 0;
 
