@@ -36,5 +36,6 @@ rbTree_root insertRbTree(rbTree_root p,datatype value){
     
 }
 int main(void){
+    printf("TEST");
     return 0;
 }
